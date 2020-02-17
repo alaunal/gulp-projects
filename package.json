@@ -1,0 +1,92 @@
+{
+  "name": "gulp-projects",
+  "version": "1.0.0",
+  "description": "Gulp task runner for HTML5 Templating projects. | Rollup.js | Nunjucks Templates | Webpack-stream | Project-build",
+  "main": "index.js",
+  "scripts": {
+    "dev": "gulp gulp:dev",
+    "build": "NODE_ENV=production gulp:build",
+    "serve": "gulp gulp:serve",
+    "watch": "gulp gulp:watch"
+  },
+  "keywords": [
+    "gulp",
+    "Nunjucks",
+    "UIKIT",
+    "Templates",
+    "HTML5",
+    "Rollup.js",
+    "Webpack-stream",
+    "projects-build"
+  ],
+  "author": "a.kauniyyah <a.kauniyyah@go-jek.com>",
+  "license": "ISC",
+  "browserslist": [
+    "last 2 versions",
+    "> 0.25%"
+  ],
+  "engines": {
+    "node": ">= 10.x",
+    "npm": ">= 6.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-node-resolve": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "browser-sync": "^2.26.7",
+    "core-js": "^2.6.11",
+    "cssnano": "^4.1.10",
+    "del": "^5.1.0",
+    "directory-exists": "^2.0.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-babel": "^8.0.0",
+    "gulp-better-rollup": "^4.0.1",
+    "gulp-cached": "^1.1.1",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-csso": "^3.0.1",
+    "gulp-data": "^1.3.1",
+    "gulp-debug": "^4.0.0",
+    "gulp-header": "^2.0.9",
+    "gulp-jsbeautifier": "^3.0.1",
+    "gulp-msg": "0.0.4",
+    "gulp-noop": "^1.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-nunjucks-render": "^2.2.3",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-strip-comments": "^2.5.2",
+    "gulp-terser": "^1.2.0",
+    "gulp4-run-sequence": "^1.0.0",
+    "pump": "^3.0.0",
+    "regenerator-runtime": "^0.13.3",
+    "rollup": "^1.29.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-stream": "^5.2.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-object-rest-spread",
+        {
+          "useBuiltIns": true
+        }
+      ]
+    ]
+  },
+  "dependencies": {}
+}
