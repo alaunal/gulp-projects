@@ -254,6 +254,7 @@
           msg.Time('<%= title %>:', {
               title: 'Guilde'
           });
+          msg.Warning('- yarn / npm run create-apps --project [name-project]');
           msg.Warning('- Project name cannot be empty');
           msg.Warning('- Project name must be at least 3 characters long');
           msg.Warning('- project names are recommended not to use spaces and special characters (! @ # $% ^ & * () ";: <>,? /)');
