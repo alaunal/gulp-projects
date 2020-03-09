@@ -140,6 +140,13 @@
       return projectConf;
   };
 
+  // -- Create Projects Starter
+
+  const createStarterProject = dirPath => {
+      return gulp.src(cfg.paths.shared + 'base-starter/**/*')
+          .pipe(gulp.dest(dirPath));
+  };
+
 
   // ---------------------------------------------------
   // -- GULP TASKS
@@ -181,12 +188,7 @@
       const nameProject = arg.project ? arg.project : '';
       const directory = cfg.paths.projects + nameProject;
 
-      // -- Get default of project starter kit
 
-      const createDefaultProject = dirPath => {
-          return gulp.src(cfg.paths.shared + 'base-starter/**/*')
-              .pipe(gulp.dest(dirPath));
-      };
 
       // -- Validation of name project
 
@@ -204,9 +206,9 @@
           directoryExists(directory).then(result => {
               if (!result) {
 
-                  // -- Project create
+                  // -- Project create starter
 
-                  createDefaultProject(directory);
+                  createStarterProject(directory);
 
                   // -- Message notice
 

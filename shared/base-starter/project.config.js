@@ -13,7 +13,7 @@ const DATA = {
         "name": "STARTER KIT PROJECT",
         "static": "static/",
         "revid": makeId(8),
-        "title": "GULP TEMPLATEING | STARTER KIT site",
+        "title": "SITE TEMPLATES PROJECT | STARTER KIT site",
         "metaDescript": ""
     }
 };

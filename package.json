@@ -4,8 +4,8 @@
   "description": "Gulp task runner for HTML5 Templating projects. | Rollup.js | Nunjucks Templates | Webpack-stream | Project-build",
   "main": "index.js",
   "scripts": {
-    "dev": "gulp gulp:dev",
-    "build": "NODE_ENV=production gulp:build",
+    "dev": "gulp",
+    "build": "gulp NODE_ENV=production",
     "serve": "gulp gulp:serve",
     "watch": "gulp gulp:watch",
     "create-apps": "gulp create-project"

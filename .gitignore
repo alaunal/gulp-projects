@@ -3,6 +3,7 @@ node_modules/*
 node_modules
 build/*
 build/
+projects/*/self.config.js
 
 package-lock.json
 yarn.lock
