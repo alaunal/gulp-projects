@@ -1,21 +1,20 @@
-// -- COLOR VARIABLE
-:root {
-    --base-color-black100: #000000;
-    --base-color-black80: #222222;
-    --base-color-black70: #666666;
-    --base-color-black60: #888888;
-    --base-color-black50: #c4c4c4;
-    --base-color-black40: #CCCCCC;
-    --base-color-black30: #dddddd;
-    --base-color-black20: #f7f7f7;
-    --base-color-white100: #ffffff;
-    --base-color-orange100: #ff8731;
-    --base-color-orange40: #ffb887;
-    --base-color-orange60: #ff8731;
-    --base-color-blue100: #009ce5;
-    --base-color-red100: #ed4959;
-    --base-color-green100: #26c195;
-    --base-color-yellow100: #fdc849;
+  // -- COLOR VARIABLE
+  :root {
+    --color-primary-green50: #00aa13;
+    --color-primary-green70: #006c0c;
+    --color-primary-green20: #4cc359;
+    --color-primary-black: #000000;
+    --color-primary-black100: #25282b;
+    --color-primary-black80: #52575c;
+    --color-primary-black40: #cacccf;
+    --color-primary-black10: #e8e8e8;
+    --color-primary-white100: #ffffff;
+    --color-secondary-orange50: #f06400;
+    --color-secondary-blue50: #00aed6;
+    --color-secondary-purple50: #772583;
+    --color-secondary-pink50: #df1995;
+    --color-secondary-red50: #ee2737;
+    --color-secondary-red70: #be1f2c;
   }
   
   // -- TYPOGRAPHY VARIABLE
@@ -25,7 +24,6 @@
   $font-scale: 1.414 !default;
   
   $font-paths: "/static/fonts/roboto/";
-  $icon-paths: "/static/fonts/icons/";
   $font-colection: (
     Black: "Roboto-Black",
     Bold: "Roboto-Bold",

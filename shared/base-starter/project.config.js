@@ -8,6 +8,8 @@ const makeId = (length) => {
     return result;
 };
 
+// -- default of structure simple data static for nunjucks templates
+
 const DATA = {
     "base": {
         "name": "STARTER KIT PROJECT",
@@ -18,9 +20,18 @@ const DATA = {
     }
 };
 
+// -- config for compiler use webpack-stream [true] "default false use rollup.js"
+
 const ISWEBPACK = false;
+
+// -- version of source and dist. for name directory
+const VERSION = {
+    input: "",
+    output: "",
+};
 
 module.exports = {
     data: DATA,
-    isWebpack: ISWEBPACK
+    isWebpack: ISWEBPACK,
+    version: VERSION
 };

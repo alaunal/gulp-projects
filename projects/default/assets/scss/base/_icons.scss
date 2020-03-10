@@ -1,0 +1,387 @@
+@import 'variables_icons';
+
+@font-face {
+  font-family: '#{$icon-font-family}';
+  src:  url('#{$icon-font-path}/#{$icon-font-family}.eot?ry4xn2');
+  src:  url('#{$icon-font-path}/#{$icon-font-family}.woff2?ry4xn2') format("woff2"),
+    url('#{$icon-font-path}/#{$icon-font-family}.eot?ry4xn2#iefix') format('embedded-opentype'),
+    url('#{$icon-font-path}/#{$icon-font-family}.ttf?ry4xn2') format('truetype'),
+    url('#{$icon-font-path}/#{$icon-font-family}.woff?ry4xn2') format('woff'),
+    url('#{$icon-font-path}/#{$icon-font-family}.svg?ry4xn2##{$icon-font-family}') format('svg');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icon-font-family}' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  font-size: inherit;
+  text-transform: none;
+  line-height: 1;
+  speak: none;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ADDITIONAL DO NOT REMOVE =========== */
+.gi-website {
+  &:before {
+    content: $gi-web;
+    color: #4a4a4a;
+  }
+}
+
+.gi-xs {
+  @include icon-size(xs);
+}
+
+.gi-sm {
+  @include icon-size(sm);
+}
+
+.gi-md {
+  @include icon-size(md);
+}
+
+.gi-lg {
+  @include icon-size(lg);
+}
+
+.gi-xl {
+  @include icon-size(xl);
+}
+/* ADDITIONAL DO NOT REMOVE =========== */
+
+
+.gi-icon-solid-gobills {
+  &:before {
+    content: $gi-icon-solid-gobills;
+  }
+}
+.gi-icon-solid-gobiz {
+  &:before {
+    content: $gi-icon-solid-gobiz;
+  }
+}
+.gi-icon-solid-gocar {
+  &:before {
+    content: $gi-icon-solid-gocar;
+  }
+}
+.gi-icon-solid-godeals {
+  &:before {
+    content: $gi-icon-solid-godeals;
+  }
+}
+.gi-icon-solid-gofood {
+  &:before {
+    content: $gi-icon-solid-gofood;
+  }
+}
+.gi-icon-solid-golaundry {
+  &:before {
+    content: $gi-icon-solid-golaundry;
+  }
+}
+.gi-icon-solid-gopay {
+  &:before {
+    content: $gi-icon-solid-gopay;
+  }
+}
+.gi-icon-solid-goplay {
+  &:before {
+    content: $gi-icon-solid-goplay;
+  }
+}
+.gi-icon-solid-gopoint {
+  &:before {
+    content: $gi-icon-solid-gopoint;
+  }
+}
+.gi-icon-solid-goride {
+  &:before {
+    content: $gi-icon-solid-goride;
+  }
+}
+.gi-icon-solid-gosend {
+  &:before {
+    content: $gi-icon-solid-gosend;
+  }
+}
+.gi-icon-solid-gotix {
+  &:before {
+    content: $gi-icon-solid-gotix;
+  }
+}
+.gi-icon-gobills {
+  &:before {
+    content: $gi-icon-gobills;
+  }
+}
+.gi-icon-gobiz {
+  &:before {
+    content: $gi-icon-gobiz;
+  }
+}
+.gi-icon-gocar {
+  &:before {
+    content: $gi-icon-gocar;
+  }
+}
+.gi-icon-godeals {
+  &:before {
+    content: $gi-icon-godeals;
+  }
+}
+.gi-icon-gofood {
+  &:before {
+    content: $gi-icon-gofood;
+  }
+}
+.gi-icon-gojek {
+  &:before {
+    content: $gi-icon-gojek;
+  }
+}
+.gi-icon-golaundry {
+  &:before {
+    content: $gi-icon-golaundry;
+  }
+}
+.gi-icon-gopay {
+  &:before {
+    content: $gi-icon-gopay;
+  }
+}
+.gi-icon-goplay {
+  &:before {
+    content: $gi-icon-goplay;
+  }
+}
+.gi-icon-gopoints {
+  &:before {
+    content: $gi-icon-gopoints;
+  }
+}
+.gi-icon-goride {
+  &:before {
+    content: $gi-icon-goride;
+  }
+}
+.gi-icon-gosend {
+  &:before {
+    content: $gi-icon-gosend;
+  }
+}
+.gi-icon-gotix {
+  &:before {
+    content: $gi-icon-gotix;
+  }
+}
+.gi-account {
+  &:before {
+    content: $gi-account;
+  }
+}
+.gi-code {
+  &:before {
+    content: $gi-code;
+  }
+}
+.gi-dashboard {
+  &:before {
+    content: $gi-dashboard;
+  }
+}
+.gi-form {
+  &:before {
+    content: $gi-form;
+  }
+}
+.gi-hi {
+  &:before {
+    content: $gi-hi;
+  }
+}
+.gi-logout {
+  &:before {
+    content: $gi-logout;
+  }
+}
+.gi-user {
+  &:before {
+    content: $gi-user;
+  }
+}
+.gi-arrow-upload {
+  &:before {
+    content: $gi-arrow-upload;
+  }
+}
+.gi-pdf {
+  &:before {
+    content: $gi-pdf;
+  }
+}
+.gi-calendar {
+  &:before {
+    content: $gi-calendar;
+  }
+}
+.gi-triangle-down {
+  &:before {
+    content: $gi-triangle-down;
+  }
+}
+.gi-upload {
+  &:before {
+    content: $gi-upload;
+  }
+}
+.gi-tick {
+  &:before {
+    content: $gi-tick;
+  }
+}
+.gi-error {
+  &:before {
+    content: $gi-error;
+  }
+}
+.gi-search {
+  &:before {
+    content: $gi-search;
+  }
+}
+.gi-arrow-up {
+  &:before {
+    content: $gi-arrow-up;
+  }
+}
+.gi-arrowbar-down {
+  &:before {
+    content: $gi-arrowbar-down;
+  }
+}
+.gi-arrowbar-left {
+  &:before {
+    content: $gi-arrowbar-left;
+  }
+}
+.gi-arrowbar-right {
+  &:before {
+    content: $gi-arrowbar-right;
+  }
+}
+.gi-arrowbar-up {
+  &:before {
+    content: $gi-arrowbar-up;
+  }
+}
+.gi-caret-down {
+  &:before {
+    content: $gi-caret-down;
+  }
+}
+.gi-caret-left {
+  &:before {
+    content: $gi-caret-left;
+  }
+}
+.gi-caret-right {
+  &:before {
+    content: $gi-caret-right;
+  }
+}
+.gi-caret-up {
+  &:before {
+    content: $gi-caret-up;
+  }
+}
+.gi-menu {
+  &:before {
+    content: $gi-menu;
+  }
+}
+.gi-retry {
+  &:before {
+    content: $gi-retry;
+  }
+}
+.gi-close {
+  &:before {
+    content: $gi-close;
+  }
+}
+.gi-location {
+  &:before {
+    content: $gi-location;
+  }
+}
+.gi-arrow {
+  &:before {
+    content: $gi-arrow;
+  }
+}
+.gi-facebook {
+  &:before {
+    content: $gi-facebook;
+  }
+}
+.gi-instagram {
+  &:before {
+    content: $gi-instagram;
+  }
+}
+.gi-line {
+  &:before {
+    content: $gi-line;
+  }
+}
+.gi-linkedin {
+  &:before {
+    content: $gi-linkedin;
+  }
+}
+.gi-twitter {
+  &:before {
+    content: $gi-twitter;
+  }
+}
+.gi-web {
+  &:before {
+    content: $gi-web;
+  }
+}
+.gi-youtube {
+  &:before {
+    content: $gi-youtube;
+  }
+}
+.gi-arrow-left {
+  &:before {
+    content: $gi-arrow-left;
+  }
+}
+.gi-arrow-right {
+  &:before {
+    content: $gi-arrow-right;
+  }
+}
+.gi-globe {
+  &:before {
+    content: $gi-globe;
+  }
+}
+.gi-arrow-down {
+  &:before {
+    content: $gi-arrow-down;
+  }
+}
+

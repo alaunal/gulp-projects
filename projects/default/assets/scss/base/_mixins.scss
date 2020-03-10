@@ -1,5 +1,27 @@
 // PX to REM - Usage: font-size: rem(37px);
 @function rem($px, $base: $font-base-size) {
     @return ($px / $base) * 1rem;
-  }
-  
+}
+
+
+@mixin icon-size($size: sm) {
+    @if $size==xs {
+        font-size: .5rem;
+    }
+
+    @if $size==sm {
+        font-size: .75rem;
+    }
+
+    @if $size==md {
+        font-size: 1rem;
+    }
+
+    @if $size==lg {
+        font-size: 1.5rem;
+    }
+
+    @if $size==xl {
+        font-size: 2rem;
+    }
+}

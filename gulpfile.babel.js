@@ -128,8 +128,13 @@
   // -- Get of configuration project project.config.js
 
   const getProjectConfig = () => {
-      const projectConf = checkProject().isDir ? require(cfg.paths.projects + checkProject().dirName + '/project.config') : require(cfg.paths.default+'/project.config');
-      return projectConf;
+      const ckProject = checkProject();
+      const projectConf = ckProject.isDir ? require(cfg.paths.projects + ckProject.dirName + '/project.config') : require(cfg.paths.default+'/project.config');
+
+      return {
+          ...ckProject,
+          ...projectConf
+      };
   };
 
 
@@ -185,10 +190,8 @@
 
   gulp.task('create-project', done => {
 
-      const nameProject = arg.project ? arg.project : '';
+      const nameProject = arg.project && arg.project.length > 0 ? arg.project : '';
       const directory = cfg.paths.projects + nameProject;
-
-
 
       // -- Validation of name project
 
@@ -212,56 +215,82 @@
 
                   // -- Message notice
 
-                  msg.Info('--', 'Create of Project!', '--');
+                  msg.Info('--', 'CREATE OF PROJECT TEMPLATES', '--');
                   msg.Note('*');
                   msg.Note('*');
-                  msg.Success('Status       : <%= status %>, Project has benn created.', {
+                  msg.Success('Status           : <%= status %>, Project has been created.', {
                       status: 'Success!'
                   });
-                  msg.Warning('Name Project : <%= name %>', {
+                  msg.Note('');
+                  msg.Warning('Name Project     : <%= name %>', {
                       name: nameProject
                   });
-                  msg.Warning('Project dir. : <%= dir %>', {
+                  msg.Note('');
+                  msg.Warning('Project dir.     : <%= dir %>', {
                       dir: directory
                   });
                   msg.Note('*');
                   msg.Note('*');
-                  msg.Info('--', '', '');
+                  msg.Note('~', 'Task Running Script', '~');
+                  msg.Note('*');
+                  msg.Note('*');
+                  msg.Warning('SERVING          : npm run serve --project <%= name %>', {
+                      name: nameProject
+                  });
+                  msg.Note('');
+                  msg.Warning('BUILD DEVELOP    : npm run dev --project <%= name %>', {
+                      name: nameProject
+                  });
+                  msg.Note('');
+                  msg.Warning('BUILD PRODUCTION : npm run build --project <%= name %>', {
+                      name: nameProject
+                  });
+                  msg.Note('');
+                  msg.Warning('WATCHING         : npm run watch --project <%= name %>', {
+                      name: nameProject
+                  });
+                  msg.Note('*');
+                  msg.Note('*');
+                  msg.Info('--', '(c) ' + new Date().getFullYear() + ' a.kauniyyah | WEBTEAM', '--');
 
               } else {
 
                   // -- Message notice
 
-                  msg.Info('--', 'Create of Project!', '--');
+                  msg.Info('--', 'CREATE OF PROJECT TEMPLATES', '--');
+                  msg.Note('*');
                   msg.Note('*');
                   msg.Error('Status        : <%= status %>, Project is Existing.', {
-                      status: 'Failed!'
+                      status: 'FAILED!'
                   });
                   msg.Note('Name Project  : <%= name %>', {
                       name: nameProject
                   });
                   msg.Note('*');
-                  msg.Info('--', '', '');
+                  msg.Note('*');
+                  msg.Info('--', '(c) ' + new Date().getFullYear() + ' a.kauniyyah | WEBTEAM', '--');
               }
           });
       } else {
 
           // -- Message notice
 
-          msg.Info('--', 'Create of Project!', '--');
+          msg.Info('--', 'CREATE OF PROJECT TEMPLATES', '--');
+          msg.Note('*');
           msg.Note('*');
           msg.Error("Status: <%= status %>", {
-              status: 'Error!'
+              status: 'ERROR!'
           });
           msg.Time('<%= title %>:', {
-              title: 'Guilde'
+              title: 'GUIDELINE'
           });
           msg.Warning('- yarn / npm run create-apps --project [name-project]');
           msg.Warning('- Project name cannot be empty');
           msg.Warning('- Project name must be at least 3 characters long');
           msg.Warning('- project names are recommended not to use spaces and special characters (! @ # $% ^ & * () ";: <>,? /)');
           msg.Note('*');
-          msg.Info('--', '', '');
+          msg.Note('*');
+          msg.Info('--', '(c) ' + new Date().getFullYear() + ' a.kauniyyah | WEBTEAM', '--');
       }
 
 
@@ -274,15 +303,17 @@
 
       if (!cfg.settings.copy) return done();
 
-      return gulp.src(cfg.paths.public.input(checkProject()))
+      const propsPrj = getProjectConfig();
+
+      return gulp.src(cfg.paths.public.input(propsPrj))
           .pipe(plumber({
               errorHandler: onError
           }))
           .pipe(data(function() {
-              return getProjectConfig().data;
+              return propsPrj.data;
           }))
           .pipe(nunjucksRender({
-              path: [cfg.paths.public.html(checkProject())]
+              path: [cfg.paths.public.html(propsPrj)]
           }))
           .pipe(beautify({
               html: {
@@ -301,8 +332,10 @@
 
       if (!cfg.settings.styles) return done();
 
+      const propsPrj = getProjectConfig();
+
       pump([
-          gulp.src(cfg.paths.styles.input(checkProject())),
+          gulp.src(cfg.paths.styles.input(propsPrj)),
           plumber({
               errorHandler: onError
           }),
@@ -336,9 +369,11 @@
 
       if (!cfg.settings.scripts) return done();
 
-      if (getProjectConfig().isWebpack) {
+      const propsPrj = getProjectConfig();
 
-          return gulp.src(cfg.paths.scripts.input(checkProject()))
+      if (propsPrj.isWebpack) {
+
+          return gulp.src(cfg.paths.scripts.input(propsPrj))
               .pipe(plumber({
                   errorHandler: onError
               }))
@@ -368,7 +403,7 @@
               }),
           ];
 
-          return gulp.src(cfg.paths.scripts.input(checkProject()))
+          return gulp.src(cfg.paths.scripts.input(propsPrj))
               .pipe(isProd ? noop() : sourcemaps.init())
               .pipe(plumber({
                   errorHandler: onError
@@ -395,7 +430,9 @@
   // -- Copy of static when of changed
 
   gulp.task('copy-static', () => {
-      return gulp.src(cfg.paths.libs.input(checkProject()))
+      const propsPrj = getProjectConfig();
+
+      return gulp.src(cfg.paths.libs.input(propsPrj))
           .pipe(gulp.dest(cfg.paths.libs.output));
   });
 
@@ -443,7 +480,8 @@
   // -- watch task runner
 
   gulp.task('gulp:watch', done => {
-      const pathWatch = cfg.paths.watch(checkProject());
+      const propsPrj = getProjectConfig();
+      const pathWatch = cfg.paths.watch(propsPrj);
 
       gulp.watch(pathWatch, callback => {
           runSequence(

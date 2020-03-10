@@ -109,17 +109,20 @@ p {
 // Misc Styles
 em,
 .italic {
+  font-size: inherit;
   font-style: italic;
 }
 
 strong,
 b,
 .bold {
+  font-size: inherit;
   font-family: $font-fm-bold;
 }
 
 small,
 .small {
+  font-size: inherit;
   font-size: 80%;
 }
 
