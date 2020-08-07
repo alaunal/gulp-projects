@@ -24,6 +24,10 @@ const DATA = {
 
 const ISWEBPACK = false;
 
+// -- Rollup Script Format | default = es | option: [ es, amd, cjs ]
+
+const ROLLUP_FORMAT = "cjs";
+
 // -- version of source and dist. for name directory
 const VERSION = {
     input: "",
@@ -33,5 +37,6 @@ const VERSION = {
 module.exports = {
     data: DATA,
     isWebpack: ISWEBPACK,
+    rollupFormat: ROLLUP_FORMAT,
     version: VERSION
 };

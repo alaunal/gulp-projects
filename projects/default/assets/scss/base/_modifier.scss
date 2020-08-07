@@ -39,3 +39,17 @@ $sizes: map-merge((
   75: 75%,
   100: 100%
 ), $sizes);
+
+$overflows: auto, hidden !default;
+$positions: static, relative, absolute, fixed, sticky !default;
+
+$embed-responsive-aspect-ratios: () !default;
+$embed-responsive-aspect-ratios: join(
+  (
+    (21 9),
+    (16 9),
+    (3 4),
+    (1 1),
+  ),
+  $embed-responsive-aspect-ratios
+);

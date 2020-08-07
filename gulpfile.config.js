@@ -1,6 +1,6 @@
 /**
  *
- * @author A.kauniyyah <a.kauniyyah@go-jek.com>
+ * @author A.kauniyyah <alaunalkauniyyah3@gmail.com>
  * @copyright 2019 A.kauniyyah | Sr. Front-end Web developer
  *
  * ________________________________________________________________________________
@@ -63,18 +63,40 @@ const PATHS = {
     build: BUILD,
     default: DEFAULT,
     styles: {
-        input: (data) => {
-            let path = !data.isDir ? DEFAULT + 'assets/scss/*.scss' : PROJECTS + data.dirName + '/assets/scss/*.scss';
+        dir: (data) => {
+            let pathVersion = data.version.input == '' ? '' : data.version.input + '/';
+            let path = !data.isDir ? DEFAULT + 'assets/'+ pathVersion +'scss/' : PROJECTS + data.dirName + '/assets/'+ pathVersion +'scss/';
             return path;
         },
-        output: BUILD + 'static/css/'
+        input: (data) => {
+            let pathVersion = data.version.input == '' ? '' : data.version.input + '/';
+            let path = !data.isDir ? DEFAULT + 'assets/'+ pathVersion +'scss/*.scss' : PROJECTS + data.dirName + '/assets/'+ pathVersion +'scss/*.scss';
+            return path;
+        },
+        output: (data) => {
+            let pathVersion = data.version.output == '' ? '' : data.version.output + '/';
+            return BUILD + 'static/'+ pathVersion +'css/';
+        }
     },
     scripts: {
-        input: (data) => {
-            let path = !data.isDir ? DEFAULT + 'assets/js/*.js' : PROJECTS + data.dirName + '/assets/js/*.js';
+        dir: (data) => {
+            let pathVersion = data.version.input == '' ? '' : data.version.input + '/';
+            let path = !data.isDir ? DEFAULT + 'assets/'+ pathVersion +'js/' : PROJECTS + data.dirName + '/assets/'+ pathVersion +'js/';
             return path;
         },
-        output: BUILD + 'static/js/'
+        input: (data) => {
+            let pathVersion = data.version.input == '' ? '' : data.version.input + '/';
+            let path = !data.isDir ? DEFAULT + 'assets/'+ pathVersion +'js/*.js' : PROJECTS + data.dirName + '/assets/'+ pathVersion +'js/*.js';
+            return path;
+        },
+        output: (data) => {
+            let pathVersion = data.version.output == '' ? '' : data.version.output + '/';
+            return BUILD + 'static/'+ pathVersion +'js/';
+        },
+        outputModule: (data) => {
+            let pathVersion = data.version.output == '' ? '' : data.version.output + '/nomodule';
+            return BUILD + 'static/'+ pathVersion +'js/nomodule/';
+        }
     },
     public: {
         input: (data) => {
@@ -102,10 +124,14 @@ const PATHS = {
     },
     libs: {
         input: (data) => {
-            let path = !data.isDir ? DEFAULT + 'libs/**/*' : PROJECTS + data.dirName + '/libs/**/*';
+            let pathVersion = data.version.input == '' ? '' : data.version.input + '/';
+            let path = !data.isDir ? DEFAULT + 'libs/'+ pathVersion +'**/*' : PROJECTS + data.dirName + '/libs/'+ pathVersion +'**/*';
             return path;
         },
-        output: BUILD + 'static/'
+        output: (data) => {
+            let pathVersion = data.version.output == '' ? '' : data.version.output + '/';
+            return BUILD + 'static/'+ pathVersion;
+        }
     },
     watch: (data) => {
         let path = !data.isDir ? DEFAULT : PROJECTS + data.dirName + '/';

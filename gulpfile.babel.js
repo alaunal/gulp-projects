@@ -2,7 +2,7 @@
    *
    * A simple GULP-PROJECTS
    *
-   * @author A.kauniyyah <a.kauniyyah@go-jek.com>
+   * @author A.kauniyyah <alaunalkauniyyah3@gmail.com>
    * @copyright 2019 A.kauniyyah | Sr. Front-end Web developer
    *
    * ________________________________________________________________________________
@@ -17,6 +17,7 @@
 
   import gulp from "gulp";
   import del from "del";
+  import fs from 'fs';
   import noop from "gulp-noop";
   import cache from "gulp-cached";
   import pump from "pump";
@@ -26,6 +27,7 @@
   import directoryExists from "directory-exists";
   import sourcemaps from "gulp-sourcemaps";
   import header from "gulp-header";
+  import path from "path";
 
   // -- Config
 
@@ -50,14 +52,20 @@
 
   // -- Scripts rollup.js or webpack-stream
 
-  import terser from 'gulp-terser';
+  import terserGulp from 'gulp-terser';
   import plumber from 'gulp-plumber';
   import babel from 'gulp-babel';
   import strip from 'gulp-strip-comments';
-  import rollup from 'gulp-better-rollup';
+  import {
+      rollup
+  } from 'rollup';
   import rollupBabel from 'rollup-plugin-babel';
   import rollupResolve from '@rollup/plugin-node-resolve';
   import rollupCommonjs from '@rollup/plugin-commonjs';
+  import {
+      terser
+  } from 'rollup-plugin-terser';
+  import rollupCleanup from 'rollup-plugin-cleanup';
   import named from 'vinyl-named';
   import webpackStream from 'webpack-stream';
   import webpack from 'webpack';
@@ -105,8 +113,6 @@
           message: "Error: <%= error.message %>",
           sound: "Beep"
       })(err);
-
-      // this.emit('end');
   };
 
   // -- Validate Project Available
@@ -234,24 +240,24 @@
                   msg.Note('~', 'Task Running Script', '~');
                   msg.Note('*');
                   msg.Note('*');
-                  msg.Warning('SERVING          : npm run serve --project <%= name %>', {
+                  msg.Warning('SERVING          : yarn serve --project <%= name %>', {
                       name: nameProject
                   });
                   msg.Note('');
-                  msg.Warning('BUILD DEVELOP    : npm run dev --project <%= name %>', {
+                  msg.Warning('BUILD DEVELOP    : yarn dev --project <%= name %>', {
                       name: nameProject
                   });
                   msg.Note('');
-                  msg.Warning('BUILD PRODUCTION : npm run build --project <%= name %>', {
+                  msg.Warning('BUILD PRODUCTION : yarn build --project <%= name %>', {
                       name: nameProject
                   });
                   msg.Note('');
-                  msg.Warning('WATCHING         : npm run watch --project <%= name %>', {
+                  msg.Warning('WATCHING         : yarn watch --project <%= name %>', {
                       name: nameProject
                   });
                   msg.Note('*');
                   msg.Note('*');
-                  msg.Info('--', '(c) ' + new Date().getFullYear() + ' a.kauniyyah | WEBTEAM', '--');
+                  msg.Info('--', '(c) ' + new Date().getFullYear() + ' | gojek-WEBTEAM', '--');
 
               } else {
 
@@ -268,7 +274,7 @@
                   });
                   msg.Note('*');
                   msg.Note('*');
-                  msg.Info('--', '(c) ' + new Date().getFullYear() + ' a.kauniyyah | WEBTEAM', '--');
+                  msg.Info('--', '(c) ' + new Date().getFullYear() + ' | gojek-WEBTEAM', '--');
               }
           });
       } else {
@@ -284,13 +290,14 @@
           msg.Time('<%= title %>:', {
               title: 'GUIDELINE'
           });
-          msg.Warning('- yarn / npm run create-apps --project [name-project]');
+          msg.Warning('- yarn create-apps --project [project-name]');
+          msg.Warning('- npm run create-apps -- --project [project-name]');
           msg.Warning('- Project name cannot be empty');
           msg.Warning('- Project name must be at least 3 characters long');
-          msg.Warning('- project names are recommended not to use spaces and special characters (! @ # $% ^ & * () ";: <>,? /)');
+          msg.Warning('- project names are recommended not to use spaces and special characters (! @ # $ % ^ & * () " ; : < > , ? /) ');
           msg.Note('*');
           msg.Note('*');
-          msg.Info('--', '(c) ' + new Date().getFullYear() + ' a.kauniyyah | WEBTEAM', '--');
+          msg.Info('--', '(c) ' + new Date().getFullYear() + ' | gojek-WEBTEAM', '--');
       }
 
 
@@ -352,12 +359,18 @@
               })
           ]),
           csso(),
-          cleanCss(),
+          cleanCss({
+              level: {
+                  1: {
+                      specialComments: 0
+                  }
+              }
+          }),
           (isProd ? noop() : sourcemaps.write('./maps')),
           header(cfg.header.main, {
               package: pkg
           }),
-          gulp.dest(cfg.paths.styles.output)
+          gulp.dest(cfg.paths.styles.output(propsPrj))
       ]);
 
       done();
@@ -373,55 +386,91 @@
 
       if (propsPrj.isWebpack) {
 
+          const dirVersion = propsPrj.version.output == '' ? '' : propsPrj.version.output + '/';
+
           return gulp.src(cfg.paths.scripts.input(propsPrj))
               .pipe(plumber({
                   errorHandler: onError
               }))
               .pipe(named())
               .pipe(webpackStream({
-                  mode: 'production'
+                  mode: isProd ? 'production' : 'development',
+                  output: {
+                      chunkFilename: 'module.[hash].js',
+                      publicPath: "static/" + dirVersion + "js/",
+                      path: path.resolve(__dirname, "static/" + dirVersion + "js"),
+                  },
+                  optimization: {
+                      splitChunks: {
+                          chunks: 'all',
+                      },
+                  },
               }, webpack))
               .pipe(isProd ? noop() : sourcemaps.init())
               .pipe(babel())
-              .pipe(terser(isProd ? cfg.uglify.prod : cfg.uglify.dev))
+              .pipe(terserGulp(isProd ? cfg.uglify.prod : cfg.uglify.dev))
               .pipe(strip())
               .pipe((isProd ? noop() : sourcemaps.write('./maps')))
               .pipe(header(cfg.header.main, {
                   package: pkg
               }))
-              .pipe(gulp.dest(cfg.paths.scripts.output));
+              .pipe(gulp.dest(cfg.paths.scripts.output(propsPrj)));
 
       } else {
 
-          const rollupPugins = [
-              rollupResolve({
-                  browser: true,
-              }),
-              rollupCommonjs(),
-              rollupBabel({
-                  exclude: 'node_modules/**'
-              }),
-          ];
+          const inputFile = () => {
+              const dir = cfg.paths.scripts.dir(propsPrj);
+              const rawFiles = fs.readdirSync(dir);
+              let inputFile = [];
 
-          return gulp.src(cfg.paths.scripts.input(propsPrj))
-              .pipe(isProd ? noop() : sourcemaps.init())
-              .pipe(plumber({
-                  errorHandler: onError
-              }))
-              .pipe(rollup({
-                  plugins: rollupPugins
-              }, {
-                  format: 'iife',
-                  name: 'scripts'
-              }))
-              .pipe(babel())
-              .pipe(terser(isProd ? cfg.uglify.prod : cfg.uglify.dev))
-              .pipe(strip())
-              .pipe((isProd ? noop() : sourcemaps.write('./maps')))
-              .pipe(header(cfg.header.main, {
-                  package: pkg
-              }))
-              .pipe(gulp.dest(cfg.paths.scripts.output));
+
+              rawFiles.forEach(function(file) {
+                  file = dir + '' + file;
+                  let stat = fs.statSync(file);
+
+                  if (stat && !stat.isDirectory()) {
+                      inputFile.push(file);
+                  }
+              });
+
+              return inputFile;
+          };
+
+          const rollupSet = rollup({
+              input: inputFile(),
+              plugins: [
+                  rollupResolve({
+                      browser: true,
+                  }),
+                  rollupCommonjs(),
+                  rollupBabel({
+                      exclude: 'node_modules/**'
+                  }),
+                  rollupCleanup({
+                      comments: 'none'
+                  })
+              ]
+          });
+
+          const outputSet = {
+              sourcemap: isProd ? false : true,
+              plugins: isProd ? [terser(cfg.uglify.prod)] : [terser(cfg.uglify.dev)]
+          };
+
+          return (
+              rollupSet.then(bundle => {
+                  return bundle.write(Object.assign({
+                      dir: cfg.paths.scripts.output(propsPrj),
+                      format: 'es'
+                  }, outputSet));
+              }),
+              rollupSet.then(bundle => {
+                  return bundle.write(Object.assign({
+                      dir: cfg.paths.scripts.outputModule(propsPrj),
+                      format: 'system'
+                  }, outputSet));
+              })
+          );
 
       }
   });
@@ -433,7 +482,7 @@
       const propsPrj = getProjectConfig();
 
       return gulp.src(cfg.paths.libs.input(propsPrj))
-          .pipe(gulp.dest(cfg.paths.libs.output));
+          .pipe(gulp.dest(cfg.paths.libs.output(propsPrj)));
   });
 
   // -- Merge of static build to Portal Project
@@ -442,10 +491,11 @@
 
       const pathConf = getSelfConfig();
       const directory = pathConf.paths.outroot + '' + pathConf.paths.dir_toCopy;
+      let pathVersion = pathConf.version.output == '' ? '' : pathConf.version.output + '/';
 
       directoryExists(directory, (error, result) => {
           if (result) {
-              return gulp.src(cfg.paths.build + 'static/**/*')
+              return gulp.src(cfg.paths.build + 'static/' + pathVersion + '**/*')
                   .pipe(gulp.dest(directory));
           }
       });
@@ -466,15 +516,45 @@
       );
   });
 
+  // -- Compile task runner
+
+  gulp.task('gulp:static', function(callback) {
+      runSequence(
+          'clear-cache',
+          'compile-styles',
+          'compile-scripts',
+          'copy-static',
+          callback
+      );
+  });
+
   // -- Merge task runner
 
   gulp.task('gulp:merge', function(callback) {
       runSequence(
           'clean',
-          'gulp:compile',
+          'gulp:static',
           'merge-static',
           callback
       );
+  });
+
+  // -- Merge watch task runner
+
+  gulp.task('gulp:merge-watch', function(done) {
+      const propsPrj = getProjectConfig();
+      const pathWatch = cfg.paths.watch(propsPrj);
+
+      gulp.watch(pathWatch, callback => {
+          runSequence(
+              'clean',
+              'gulp:static',
+              'merge-static',
+              callback
+          );
+      });
+
+      done();
   });
 
   // -- watch task runner
